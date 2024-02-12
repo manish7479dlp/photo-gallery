@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { createUser } from "../helper";
+import {useNavigate} from "react-router-dom"
 
 const Signup = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  const [firstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [userName, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [email, setEmail] = useState();
-  const [avatar, setAvatar] = useState();
-  const [coverImage, setCoverImage] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const navigate = useNavigate()
 
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre);
   };
 
   //handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // check all mendatory field data are getting or not
     if (
-      [firstName, LastName, userName, password, confirmPassword, email].some(
+      [firstName, lastName, userName, password, confirmPassword, email].some(
         (field) => field.trim() === ""
       )
     ) {
@@ -36,15 +39,21 @@ const Signup = () => {
     }
     const signUpDetails = {
       firstName,
-      LastName,
+      lastName,
       userName,
       password,
       email,
       avatar,
-      coverImage,
+      coverImage
     };
 
     console.log(signUpDetails);
+   const response =  await createUser(signUpDetails)
+   if(response.status) {
+       navigate("/login")
+   } else {
+
+   }
   };
 
   return (
@@ -77,7 +86,7 @@ const Signup = () => {
             <br />
             <input
               type="text"
-              value={LastName}
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64 md:w-72"
             />
@@ -155,9 +164,8 @@ const Signup = () => {
             <br />
             <input
               type="file"
-              value={avatar}
               name="avatar"
-              onChange={(e) => setAvatar(e.target.value)}
+              onChange={(e) => setAvatar(e.target?.files)}
               className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64 md:w-72"
             />
           </div>
@@ -168,8 +176,7 @@ const Signup = () => {
             <input
               type="file"
               name="coverImage"
-              value={coverImage}
-              onChange={(e) => setCoverImage(e.target.value)}
+              onChange={(e) => setCoverImage(e.target?.files)}
               className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64 md:w-72"
             />
           </div>
