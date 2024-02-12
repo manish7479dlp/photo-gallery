@@ -156,6 +156,7 @@ const Signup = () => {
             <input
               type="file"
               value={avatar}
+              name="avatar"
               onChange={(e) => setAvatar(e.target.value)}
               className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64 md:w-72"
             />
@@ -166,6 +167,7 @@ const Signup = () => {
             <br />
             <input
               type="file"
+              name="coverImage"
               value={coverImage}
               onChange={(e) => setCoverImage(e.target.value)}
               className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64 md:w-72"
