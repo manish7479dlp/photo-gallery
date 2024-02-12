@@ -1,7 +1,7 @@
 const User = require("../models/user.models");
 const bcryptjs = require("bcryptjs");
 const apiResponse = require("../utility/apiResponse");
-const fs = require("fs")
+const fs = require("fs");
 
 //create user
 const createUser = async (req, res) => {
@@ -354,11 +354,7 @@ const addImage = async (req, res) => {
     return res
       .status(200)
       .json(
-        new apiResponse(
-          200,
-          { user: response },
-          "image uploaded sucessfully"
-        )
+        new apiResponse(200, { user: response }, "image uploaded sucessfully")
       );
   } catch (error) {
     console.log("Error: ", error);
@@ -378,39 +374,30 @@ const addImage = async (req, res) => {
 //delete image
 const deleteImage = async (req, res) => {
   try {
-    const imgName = req.params?.imgName
+    const imgName = req.params?.imgName;
 
     if (!imgName) {
       return res
         .status(400)
-        .json(
-          new apiResponse(
-            400,
-            null,
-            "imageName required"
-          )
-        );
+        .json(new apiResponse(400, null, "imageName required"));
     }
 
     const user = req?.user;
-    const imageName = `upload\\${imgName}`
-    fs.unlinkSync(imageName)
+    const imageName = `upload\\${imgName}`;
+    fs.unlinkSync(imageName);
     const images = user?.images.filter((img) => {
-      return (
-        img !== imageName
-      )
-    })
-    user.images = images
-    const response = await user.save({ validateBeforeSave: false }, {new: true});
+      return img !== imageName;
+    });
+    user.images = images;
+    const response = await user.save(
+      { validateBeforeSave: false },
+      { new: true }
+    );
 
     return res
       .status(200)
       .json(
-        new apiResponse(
-          200,
-          { user: response },
-          "image deleted sucessfully"
-        )
+        new apiResponse(200, { user: response }, "image deleted sucessfully")
       );
   } catch (error) {
     console.log("Error: ", error);
@@ -421,6 +408,46 @@ const deleteImage = async (req, res) => {
           400,
           null,
           "something went wrong in addImage controller",
+          error
+        )
+      );
+  }
+};
+
+const updateAvatar = async (req, res) => {
+  try {
+    const imgPath = req?.file?.path;
+
+    if (!imgPath) {
+      res
+        .status(0)
+        .json(
+          new apiResponse(400, "Something went wrong in updateAvtar controller")
+        );
+    }
+
+    const user = req?.user;
+    const preImg = user.avatar;
+    if (preImg) {
+      fs.unlinkSync(preImg);
+    }
+    user.avatar = imgPath;
+
+    const response = await user.save({ validateBeforeSave: false });
+
+    return res
+      .status(200)
+      .json(
+        new apiResponse(200, { user: response }, "avatar updated sucessfully")
+      );
+  } catch (error) {
+    console.log("Error: ", error);
+    res
+      .status(0)
+      .json(
+        new apiResponse(
+          400,
+          "Something went wrong in updateAvtar controller",
           error
         )
       );
@@ -438,5 +465,6 @@ module.exports = {
   deleteUser,
   getAllUser,
   addImage,
-  deleteImage
+  deleteImage,
+  updateAvatar,
 };
