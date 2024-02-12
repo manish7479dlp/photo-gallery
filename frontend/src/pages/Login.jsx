@@ -3,6 +3,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { login } from "../helper";
 import {useDispatch} from "react-redux"
 import { setData } from "../store/features/user/userSlice";
+import {toast} from "react-toastify"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const ACCESS_TOKEN = 'accessToken'
@@ -10,6 +12,7 @@ const Login = () => {
   const [userName , setUserName] = useState("")
   const [password , setPassword] = useState("")
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre)
@@ -27,7 +30,10 @@ const Login = () => {
      if(response.status) {
       dispatch(setData(response.data.user))
       localStorage.setItem(ACCESS_TOKEN , response.data.accessToken)
-        alert("login sucessfully")
+        toast.success("login sucessfully")
+        navigate("/profile")
+     } else {
+         toast.error(response.message)
      }
   }
 

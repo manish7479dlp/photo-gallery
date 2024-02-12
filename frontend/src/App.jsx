@@ -5,9 +5,12 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <BrowserRouter>
+    <ToastContainer/>
       <Header />
       <Routes>
         <Route path="/" element={<Landing />} />
