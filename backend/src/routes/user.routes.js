@@ -3,7 +3,7 @@ const router = express.Router();
 const {verifyJWT} = require("../middlewares/auth.middlewares")
 const {upload} = require("../middlewares/multer.middlewares")
 
-const {createUser, login, updateFirstName, updateLastName, updateEmail, updatePassword, updateUserDetails, deleteUser, getAllUser, addImage, deleteImage, updateAvatar} = require("../controllers/user.controllers")
+const {createUser, login, updateFirstName, updateLastName, updateEmail, updatePassword, updateUserDetails, deleteUser, getAllUser, addImage, deleteImage, updateAvatar, updateCoverImage} = require("../controllers/user.controllers")
 
 //create user route
 router.post("/create" , createUser);
@@ -40,6 +40,9 @@ router.delete("/image/:imgName", verifyJWT , deleteImage)
 
 //update avatar
 router.patch("/update/avatar",verifyJWT , upload.single("avatar"), updateAvatar)
+
+//update cover image
+router.patch("/update/cover-image",verifyJWT , upload.single("coverImage"), updateCoverImage)
 
 
 module.exports = router;
