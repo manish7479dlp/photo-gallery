@@ -32,4 +32,26 @@ const createUser = async (data) => {
   }
 };
 
-export { createUser };
+//login user
+const login = async (data) => {
+  try {
+    const url = BASE_URL + "/login"
+
+    const response =  await fetch(url , {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+
+    const responseData = await response.json()
+    console.log(responseData)
+    return responseData
+
+  } catch (error) {
+    console.log("Error: ", error)
+  }
+}
+
+export { createUser , login };
