@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { createUser } from "../helper";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
@@ -13,7 +14,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [coverImage, setCoverImage] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre);
@@ -29,12 +30,12 @@ const Signup = () => {
         (field) => field.trim() === ""
       )
     ) {
-      alert("All Fields are required");
+      toast.warning("All Fields are required");
       return;
     }
 
     if (confirmPassword !== password) {
-      alert("Password or Confirm password not Match");
+      toast.warning("Password or Confirm password not Match");
       return;
     }
     const signUpDetails = {
@@ -44,16 +45,17 @@ const Signup = () => {
       password,
       email,
       avatar,
-      coverImage
+      coverImage,
     };
 
     console.log(signUpDetails);
-   const response =  await createUser(signUpDetails)
-   if(response.status) {
-       navigate("/login")
-   } else {
-
-   }
+    const response = await createUser(signUpDetails);
+    if (response.status) {
+      navigate("/login");
+      toast.success("User created sucessfully")
+    } else {
+      toast.error(response.message)
+    }
   };
 
   return (
