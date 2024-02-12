@@ -10,10 +10,17 @@ const UserGallery = ({ images }) => {
       <h1 className="text-3xl font-oswald pt-3">Our Collections</h1>
       <div className="border-b-2 border-yellow-600 w-40"></div>
       <div className="py-3 bg-slate-900 flex flex-wrap gap-2 justify-center rounded-md">
+        
+        {!images &&  (
+          <h1>No Image found</h1>
+        )}
+
         {images?.map((img, idx) => {
           const avtartImgURL = BASE_URL + img;
           return <ImageContainer key={idx} imgUrl={avtartImgURL} />;
         })}
+
+        
       </div>
     </>
   );
