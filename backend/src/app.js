@@ -5,10 +5,10 @@ const path = require("path");
 
 //middleware
 
-app.use(express.json());
-
 //to enable cross origin resouce sharing
 app.use(cors());
+app.use(express.json({limit: '50mb'}));
+
 const fullPath = path.join(__dirname, "../upload");
 console.log(fullPath);
 app.use("/upload", express.static(fullPath));
