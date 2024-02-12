@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema(
     coverImage: {
       type: String,
       trim: true
+    },
+    avatart: {
+      type: String,
+      trim: true
     }
   },
   { timestamps: true }
