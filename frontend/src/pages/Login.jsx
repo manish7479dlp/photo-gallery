@@ -1,19 +1,34 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { login } from "../helper";
+import {useDispatch} from "react-redux"
+import { setData } from "../store/features/user/userSlice";
 
 const Login = () => {
+  const ACCESS_TOKEN = 'accessToken'
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [userName , setUserName] = useState("")
   const [password , setPassword] = useState("")
+  const dispatch = useDispatch();
 
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre)
   }
 
   //handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
      e.preventDefault()
-     
+     const loginData = {
+      userName,
+      password
+     }
+
+     const response = await login(loginData);
+     if(response.status) {
+      dispatch(setData(response.data.user))
+      localStorage.setItem(ACCESS_TOKEN , response.data.accessToken)
+        alert("login sucessfully")
+     }
   }
 
 
