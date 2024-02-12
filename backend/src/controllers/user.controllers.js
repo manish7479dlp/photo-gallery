@@ -35,13 +35,31 @@ const createUser = async (req, res) => {
         .json(new apiResponse(400, null, "userName already exist"));
     }
 
-    const user = await User.create({
+    // const avatar = req?.files?.avatar[0]?.path
+    // const coverImage = req?.files?.coverImage[0]?.path
+     
+  
+
+    let addData = {
       firstName,
       lastName,
       password,
       userName,
       email,
-    });
+      
+    }
+
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+      addData.coverImage = req?.files?.coverImage[0]?.path
+    }
+
+    if(req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+      addData.avatar = req?.files?.avatar[0]?.path
+    }
+
+
+
+    const user = await User.create(addData);
 
     if (user) {
       return res
