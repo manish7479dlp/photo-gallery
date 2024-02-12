@@ -414,6 +414,7 @@ const deleteImage = async (req, res) => {
   }
 };
 
+//update avatar image
 const updateAvatar = async (req, res) => {
   try {
     const imgPath = req?.file?.path;
