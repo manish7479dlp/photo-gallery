@@ -3,8 +3,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  const [userName , setUserName] = useState()
-  const [password , setPassword] = useState()
+  const [userName , setUserName] = useState("")
+  const [password , setPassword] = useState("")
 
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre)
