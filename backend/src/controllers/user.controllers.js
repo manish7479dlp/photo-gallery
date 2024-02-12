@@ -455,6 +455,47 @@ const updateAvatar = async (req, res) => {
   }
 };
 
+//update cover image
+const updateCoverImage = async (req, res) => {
+  try {
+    const imgPath = req?.file?.path;
+
+    if (!imgPath) {
+      res
+        .status(0)
+        .json(
+          new apiResponse(400, "Something went wrong in update cover image controller")
+        );
+    }
+
+    const user = req?.user;
+    const preImg = user.coverImage;
+    if (preImg) {
+      fs.unlinkSync(preImg);
+    }
+    user.coverImage = imgPath;
+
+    const response = await user.save({ validateBeforeSave: false });
+
+    return res
+      .status(200)
+      .json(
+        new apiResponse(200, { user: response }, "avatar updated sucessfully")
+      );
+  } catch (error) {
+    console.log("Error: ", error);
+    res
+      .status(0)
+      .json(
+        new apiResponse(
+          400,
+          "Something went wrong in updateAvtar controller",
+          error
+        )
+      );
+  }
+};
+
 module.exports = {
   createUser,
   login,
@@ -468,4 +509,5 @@ module.exports = {
   addImage,
   deleteImage,
   updateAvatar,
+  updateCoverImage
 };
