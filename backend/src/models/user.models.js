@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    avatart: {
+    avatar: {
       type: String,
       trim: true
     }
