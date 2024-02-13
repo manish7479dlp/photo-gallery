@@ -125,10 +125,10 @@ const UserProfile = ({
           <button
             className={`${
               uploadImg ? "bg-green-700" : "bg-slate-700"
-            } px-3 py-1 rounded-md font-dmsans hover:bg-green-800`}
+            } px-3 py-1 rounded-md font-dmsans hover:bg-green-800 `}
             onClick={uploadFile}
           >
-            {uploadImg ? uploadImg?.name : "Upload"}{" "}
+            {uploadImg ? uploadImg?.name?.slice(0, 13) : "Upload"}{" "}
             <FaUpload className="inline ml-1" />
           </button>
         </div>
