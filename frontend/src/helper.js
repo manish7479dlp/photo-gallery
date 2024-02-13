@@ -80,4 +80,25 @@ const uploadImage = async (uploadImg) => {
   }
 }
 
-export { createUser , login , uploadImage };
+//delete image
+const deleteImage = async (image) => {
+  try {
+   const url = BASE_URL + "/image/" + image
+   console.log(url)
+    const response = await fetch(url , {
+      method: 'DELETE',
+      headers: {
+        "authorization": "Bearer"+ localStorage.getItem(ACCESS_TOKEN)
+      },
+    })
+
+    const responseData = await response.json();
+    console.log(responseData)
+    return responseData
+    
+  } catch (error) {
+    console.log("Error in upload Image helper function: ", error)
+  }
+}
+
+export { createUser , login , uploadImage , deleteImage };
