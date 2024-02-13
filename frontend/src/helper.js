@@ -179,6 +179,18 @@ const updateUserDetails = async (data) => {
   }
 };
 
+//getAll image
+const getAllImage = async () => {
+  try {
+    const url = BASE_URL + "/all-image"
+    const response = await fetch(url)
+    const responseData = await response.json()
+    return responseData
+  } catch (error) {
+    console.log("Error in get all image helper function: ", error)
+  }
+}
+
 export {
   createUser,
   login,
@@ -187,4 +199,5 @@ export {
   updateCoverImage,
   updateAvatarImage,
   updateUserDetails,
+  getAllImage,
 };
