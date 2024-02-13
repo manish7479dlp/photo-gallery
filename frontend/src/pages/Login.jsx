@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { login } from "../helper";
 import {useDispatch} from "react-redux"
@@ -17,6 +17,13 @@ const Login = () => {
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre)
   }
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("user")
+     if(isAuthenticated) {
+      navigate("/profile")
+     }
+  },[])
 
   //handle form submit
   const handleSubmit = async (e) => {
