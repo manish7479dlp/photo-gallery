@@ -54,14 +54,14 @@ const EditUserDetails = () => {
   };
 
   return (
-    <div className="container h-screen w-full flex justify-center items-center ">
+    <div className="container h-screen w-full flex justify-center items-center mt-44 sm:mt-40 md:mt-0">
       <div className="md:bg-slate-600 text-white  rounded-lg p-8 mt-200 md:mt-10">
-        <h1 className="text-center text-3xl font-dmsans font-bold">
+        <h1 className="text-center text-3xl  font-dmsans font-bold mb-3">
           Edit User Details
         </h1>
         <form
           onSubmit={handleSubmit}
-          className=" flex md:justify-center flex-wrap gap-4 md:gap-8  md:mt-7"
+          className=" flex md:justify-center flex-wrap gap-5 md:gap-8  md:mt-7"
         >
           <div>
             <label className="font-semi-bold"> First Name</label>
@@ -165,7 +165,7 @@ const EditUserDetails = () => {
             />
           </div>
 
-          <div className="">
+          <div className=" sm:w-72">
             <input
               type="submit"
               value="Update"
