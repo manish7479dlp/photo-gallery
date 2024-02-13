@@ -59,7 +59,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="container h-screen w-full flex justify-center items-center ">
+    <div className="container h-screen w-full flex justify-center items-center mt-44 sm:mt-0">
       <div className="md:bg-slate-600 text-white  rounded-lg p-8 mt-200 md:mt-10">
         <h1 className="text-center text-3xl font-dmsans font-bold">Signup</h1>
         <form
