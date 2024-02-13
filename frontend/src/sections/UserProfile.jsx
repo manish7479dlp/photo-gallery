@@ -68,7 +68,7 @@ const UserProfile = ({
       </div>
 
       {/* user details section */}
-      <div className="pt-8 flex justify-between">
+      <div className="pt-8 pb-5 flex justify-between flex-col md:flex-row md:pb-0">
         {/* avatar */}
         <div className="absolute top-12 md:top-20 left-5">
           <img
