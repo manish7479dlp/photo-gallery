@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { FaUpload, FaCloudUploadAlt } from "react-icons/fa";
 import { useRef } from "react";
+import { uploadImage } from "../helper";
+import { useDispatch } from "react-redux";
+import { setData } from "../store/features/user/userSlice";
 
 // const coverImg =
 //   "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg";
@@ -25,20 +28,34 @@ const UserProfile = ({
   const coverImageURL = BASE_URL + coverImage;
 
   const inputFileRef = useRef(null);
-  const [uploadImg , setUploadImg] = useState("")
-
- 
+  const [uploadImg, setUploadImg] = useState("");
+  const dispatch = useDispatch()
 
   //edit profile function
   const editProfile = () => {
     toast.warning("Edit feature is not implemented yet.");
   };
 
-  //upload image function
-  const uploadImage = () => {
-    inputFileRef.current.click()
-  }
-  console.log(uploadImg.name)
+  //upload file function
+  const uploadFile = async () => {
+    try {
+      if (!uploadImg) {
+        toast.warning("Upload file is missing");
+        return;
+      }
+      const response = await uploadImage(uploadImg);
+      if (response.status) {
+        dispatch(setData(response.data.user));
+        toast.success("Image uploaded sucessfully");
+        setUploadImg("")
+      } else {
+        toast.warning("Something went wrong");
+      }
+    } catch (error) {
+      console.log("Error in upload file funciton", error);
+    }
+  };
+
   return (
     <div className="relative  bg-slate-900 rounded-md overflow-hidden">
       {/* coverImage section */}
@@ -92,7 +109,10 @@ const UserProfile = ({
 
         {/* upload section */}
         <div className="pt-8 px-5 flex items-center flex-col gap-3">
-          <div className="w-32 h-32 rounded-lg border-white border flex-col flex justify-center items-center cursor-pointer" onClick={uploadImage}>
+          <div
+            className="w-32 h-32 rounded-lg border-white border flex-col flex justify-center items-center cursor-pointer"
+            onClick={() => inputFileRef.current.click()}
+          >
             <FaCloudUploadAlt size={100} />
             <input
               type="file"
@@ -103,10 +123,13 @@ const UserProfile = ({
           </div>
 
           <button
-            className={`${uploadImg ? "bg-green-700" : "bg-slate-700"} px-3 py-1 rounded-md font-dmsans hover:bg-green-800`}
-            onClick={editProfile}
+            className={`${
+              uploadImg ? "bg-green-700" : "bg-slate-700"
+            } px-3 py-1 rounded-md font-dmsans hover:bg-green-800`}
+            onClick={uploadFile}
           >
-            {uploadImg ? uploadImg?.name : "Upload"}  <FaUpload className="inline ml-1" />
+            {uploadImg ? uploadImg?.name : "Upload"}{" "}
+            <FaUpload className="inline ml-1" />
           </button>
         </div>
       </div>
