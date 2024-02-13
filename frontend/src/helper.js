@@ -122,4 +122,25 @@ const updateCoverImage = async (image) => {
   }
 }
 
-export { createUser , login , uploadImage , deleteImage , updateCoverImage };
+//update avatar imgae
+const updateAvatarImage = async (image) => {
+  try {
+    const url = BASE_URL + "/update/avatar"
+    const formData = new FormData()
+    formData.set("avatar" , image);
+    const response = await fetch(url , {
+      method: "PATCH",
+      body:formData,
+      headers: {
+        authorization: localStorage.getItem(ACCESS_TOKEN)
+      }
+    })
+    const responseData = await response.json()
+    // console.log(responseData)
+    return responseData
+  } catch (error) {
+    console.log("Error in update avatar image: ", error)
+  }
+}
+
+export { createUser , login , uploadImage , deleteImage , updateCoverImage , updateAvatarImage };
