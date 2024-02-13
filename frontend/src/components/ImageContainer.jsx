@@ -5,7 +5,6 @@ const errorImgURL =
 const ImageContainer = ({ imgUrl, img }) => {
   const navigate = useNavigate()
   const imgPath = img.replace("upload\\", "")
-  console.log(imgPath)
   return (
     <div className="">
       <img
