@@ -15,7 +15,16 @@ import PrivateComponent from "./privateComponent/PrivateComponent";
 const App = () => {
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        theme="colored"
+      />
       <Header />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -24,7 +33,7 @@ const App = () => {
 
         {/* private router */}
 
-        <Route element={<PrivateComponent/>}>
+        <Route element={<PrivateComponent />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/image-preview/:img" element={<ImagePreview />} />
           <Route path="/change-cover-image" element={<ChangeCoverImage />} />
