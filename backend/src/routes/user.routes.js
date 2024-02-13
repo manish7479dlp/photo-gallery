@@ -17,6 +17,7 @@ const {
   deleteImage,
   updateAvatar,
   updateCoverImage,
+  getAllImage,
 } = require("../controllers/user.controllers");
 
 //create user route
@@ -94,5 +95,8 @@ router.patch(
   upload.single("coverImage"),
   updateCoverImage
 );
+
+//get all image 
+router.get("/all-image", getAllImage)
 
 module.exports = router;
