@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ImagePreview from "./components/ImagePreview";
 import ChangeCoverImage from "./components/ChangeCoverImage";
 import ChangeAvatarImage from "./components/ChangeAvatarImage";
+import EditUserDetails from "./pages/EditUserDetails";
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,6 +24,8 @@ const App = () => {
         <Route path="/image-preview/:img" element={<ImagePreview />} />
         <Route path="/change-cover-image" element={<ChangeCoverImage />} />
         <Route path="/change-avatar-image" element={<ChangeAvatarImage />} />
+        <Route path="/change-user-details" element={<EditUserDetails />} />
+
 
 
 

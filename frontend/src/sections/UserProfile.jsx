@@ -35,7 +35,7 @@ const UserProfile = ({
 
   //edit profile function
   const editProfile = () => {
-    toast.warning("Edit feature is not implemented yet.");
+    navigate("/change-user-details")
   };
 
   //upload file function
