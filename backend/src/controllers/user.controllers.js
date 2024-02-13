@@ -263,7 +263,7 @@ const updateLastName = async (req, res) => {
 //Update user Details
 const updateUserDetails = async (req, res) => {
   try {
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, email , password } = req.body;
 
     if (!firstName) {
       return res
@@ -282,6 +282,18 @@ const updateUserDetails = async (req, res) => {
     (user.firstName = firstName),
       (user.lastName = lastName),
       (user.email = email);
+
+      if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+        user.coverImage = req?.files?.coverImage[0]?.path
+      }
+  
+      if(req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+        user.avatar = req?.files?.avatar[0]?.path
+      }
+
+      if(password) {{
+        user.password = password
+      }}
 
     const response = await user.save({ validateBeforeSave: false });
 
