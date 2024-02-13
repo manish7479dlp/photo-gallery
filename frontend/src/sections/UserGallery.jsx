@@ -20,7 +20,7 @@ const UserGallery = ({ images }) => {
 
         {imagesCollection?.map((img, idx) => {
           const avtartImgURL = BASE_URL + img;
-          return <ImageContainer key={idx} imgUrl={avtartImgURL} />;
+          return <ImageContainer key={idx} imgUrl={avtartImgURL} img={img} />;
         })}
 
         
