@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ImagePreview from "./components/ImagePreview";
 const App = () => {
   return (
     <BrowserRouter>
@@ -17,6 +18,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/image-preview/:img" element={<ImagePreview />} />
+
       </Routes>
     </BrowserRouter>
   );
