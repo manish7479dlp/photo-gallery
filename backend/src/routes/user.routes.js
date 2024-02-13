@@ -30,7 +30,7 @@ router.post(
     {
       name: "coverImage",
       maxCount: 1,
-    }
+    },
   ]),
   createUser
 );
@@ -51,7 +51,21 @@ router.patch("/update/email", verifyJWT, updateEmail);
 router.patch("/update/password", verifyJWT, updatePassword);
 
 //update full user details
-router.patch("/update/user-details", verifyJWT, updateUserDetails);
+router.patch(
+  "/update/user-details",
+  verifyJWT,
+  upload.fields([
+    {
+      name: "avatar",
+      maxCount: 1,
+    },
+    {
+      name: "coverImage",
+      maxCount: 1,
+    },
+  ]),
+  updateUserDetails
+);
 
 //delete user details
 router.delete("/delete", verifyJWT, deleteUser);
