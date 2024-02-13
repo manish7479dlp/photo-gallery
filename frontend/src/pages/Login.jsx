@@ -50,27 +50,33 @@ const Login = () => {
 
 
   return (
-    <div className="container h-screen w-full flex justify-center items-center">
-      <div className="bg-slate-700 text-white w-72 rounded-lg p-8 md:w-80">
+    <div className="container h-screen w-full flex justify-center sm:items-center mt-20 sm:mt-0">
+      <div className="sm:bg-slate-700 text-white  rounded-lg sm:p-8 ">
         <h1 className="text-center text-3xl font-dmsans font-bold">Login</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-7">
           <div>
             <label className="font-semi-bold"> User Name</label>
+            <br/>
             <input
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
-              className="rounded-md px-2 py-1 mt-2 bg-slate-500 md:w-64"
+              // className="rounded-md px-2 py-1 mt-2 bg-slate-500 md:w-64"
+              className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64  md:w-72"
+
             />
           </div>
 
-          <div className="relative">
+          <div className="relative w-full">
             <label className="font-semi-bold">Password</label>
+            <br/>
             <input
               type= {isPasswordVisible ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-md px-2 py-1 mt-2 bg-slate-500 md:w-64"
+              // className="rounded-md px-2 py-1 mt-2 bg-slate-500 md:w-64"
+              className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64  md:w-72"
+
             />
             <div className="absolute right-3 bottom-2">
               {isPasswordVisible ? <FaEye onClick={changePasswordVisibility}/> : <FaEyeSlash onClick={changePasswordVisibility}/> }
