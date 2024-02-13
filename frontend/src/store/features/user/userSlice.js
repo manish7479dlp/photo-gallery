@@ -1,7 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+let jsonData = localStorage.getItem("user")
+if(jsonData) {
+   jsonData = JSON.parse(jsonData)
+}
+
+console.log(jsonData)
+
 const initialState = {
-  data: {},
+  data: jsonData,
+
 };
 
 const userSlice = createSlice({
@@ -10,8 +18,10 @@ const userSlice = createSlice({
   reducers: {
     setData: (state, action) => {
       state.data = action.payload;
+      localStorage.setItem("user", JSON.stringify(state.data))
     },
   },
 });
 export const { setData } = userSlice.actions;
 export default userSlice.reducer
+
