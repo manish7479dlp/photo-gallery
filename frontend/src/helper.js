@@ -101,4 +101,25 @@ const deleteImage = async (image) => {
   }
 }
 
-export { createUser , login , uploadImage , deleteImage };
+//update cover imgae
+const updateCoverImage = async (image) => {
+  try {
+    const url = BASE_URL + "/update/cover-image"
+    const formData = new FormData()
+    formData.set("coverImage" , image);
+    const response = await fetch(url , {
+      method: "PATCH",
+      body:formData,
+      headers: {
+        authorization: localStorage.getItem(ACCESS_TOKEN)
+      }
+    })
+    const responseData = await response.json()
+    // console.log(responseData)
+    return responseData
+  } catch (error) {
+    console.log("Error in update cover image: ", error)
+  }
+}
+
+export { createUser , login , uploadImage , deleteImage , updateCoverImage };
