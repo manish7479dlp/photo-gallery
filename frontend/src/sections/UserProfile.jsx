@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { FaUpload, FaCloudUploadAlt } from "react-icons/fa";
+import { useRef } from "react";
 
 // const coverImg =
 //   "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg";
@@ -9,14 +11,34 @@ import { toast } from "react-toastify";
 
 // const coverImg = "https://media.licdn.com/dms/image/D4D16AQGQdenIsg22dQ/profile-displaybackgroundimage-shrink_350_1400/0/1685336018409?e=1713398400&v=beta&t=qKhbMnvgbtZgf8xwj5fZZdPSxgPBuPIf55qSR85BwtU"
 
-const UserProfile = ({coverImage , firstName , lastName , email , images , userName, avatar}) => {
-  const BASE_URL = "http://localhost:8000/"
+const UserProfile = ({
+  coverImage,
+  firstName,
+  lastName,
+  email,
+  images,
+  userName,
+  avatar,
+}) => {
+  const BASE_URL = "http://localhost:8000/";
+  const avatarImgURL = BASE_URL + avatar;
+  const coverImageURL = BASE_URL + coverImage;
 
-  const avatarImgURL = BASE_URL + avatar
-  const coverImageURL = BASE_URL + coverImage
+  const inputFileRef = useRef(null);
+  const [uploadImg , setUploadImg] = useState("")
+
+ 
+
+  //edit profile function
   const editProfile = () => {
     toast.warning("Edit feature is not implemented yet.");
   };
+
+  //upload image function
+  const uploadImage = () => {
+    inputFileRef.current.click()
+  }
+  console.log(uploadImg.name)
   return (
     <div className="relative  bg-slate-900 rounded-md overflow-hidden">
       {/* coverImage section */}
@@ -29,7 +51,7 @@ const UserProfile = ({coverImage , firstName , lastName , email , images , userN
       </div>
 
       {/* user details section */}
-      <div className="pt-8 ">
+      <div className="pt-8 flex justify-between">
         {/* avatar */}
         <div className="absolute top-12 md:top-20 left-5">
           <img
@@ -44,27 +66,48 @@ const UserProfile = ({coverImage , firstName , lastName , email , images , userN
           <h2 className="font-dmsans text-3xl">{firstName + " " + lastName}</h2>
           <h3 className="font-dmsans text-1xl text-slate-500 font-semibold">
             <span className="text-slate-400 font-normal"> User Name :</span>{" "}
-           {userName}
+            {userName}
           </h3>
           <h3 className="font-dmsans text-1xl text-slate-500 font-semibold">
-            <span className="text-slate-400 font-normal"> Email :</span>{" "}
-            {email}
+            <span className="text-slate-400 font-normal"> Email :</span> {email}
           </h3>
           <h3 className="font-dmsans text-1xl text-slate-300 font-semibold">
             <span className="text-slate-500 font-normal">
               {" "}
               Total Image Count :
             </span>{" "}
-            { images?.length}
+            {images?.length}
           </h3>
           <div>
-            <button
-              className="bg-slate-700 px-3 py-1 rounded-md font-dmsans hover:bg-slate-800"
-              onClick={editProfile}
-            >
-              Edit Profile
-            </button>
+            <div className="flex justify-between">
+              <button
+                className="bg-slate-700 px-3 py-1 rounded-md font-dmsans hover:bg-slate-800"
+                onClick={editProfile}
+              >
+                Edit Profile
+              </button>
+            </div>
           </div>
+        </div>
+
+        {/* upload section */}
+        <div className="pt-8 px-5 flex items-center flex-col gap-3">
+          <div className="w-32 h-32 rounded-lg border-white border flex-col flex justify-center items-center cursor-pointer" onClick={uploadImage}>
+            <FaCloudUploadAlt size={100} />
+            <input
+              type="file"
+              ref={inputFileRef}
+              onChangeCapture={(e) => setUploadImg(e.target.files[0])}
+              className="hidden"
+            />
+          </div>
+
+          <button
+            className={`${uploadImg ? "bg-green-700" : "bg-slate-700"} px-3 py-1 rounded-md font-dmsans hover:bg-green-800`}
+            onClick={editProfile}
+          >
+            {uploadImg ? uploadImg?.name : "Upload"}  <FaUpload className="inline ml-1" />
+          </button>
         </div>
       </div>
     </div>
