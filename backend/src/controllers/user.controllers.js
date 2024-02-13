@@ -526,6 +526,23 @@ const updateCoverImage = async (req, res) => {
   }
 };
 
+//get all images
+const getAllImage = async (req , res) => {
+  try {
+    const users = await User.find()
+    let allImages = []
+
+    users.forEach((user) => (
+      allImages = [...allImages , ...user.images]
+    ))
+
+    res.status(200).json(new apiResponse(2000, images= {allImages} , "Sucess"))
+  } catch (error) {
+    console.log("Error in get all image controller", error)
+    res.status(400).json(new apiResponse(400 , null , "Something went wrong in get all image controller", error))
+  }
+}
+
 module.exports = {
   createUser,
   login,
@@ -539,5 +556,6 @@ module.exports = {
   addImage,
   deleteImage,
   updateAvatar,
-  updateCoverImage
+  updateCoverImage,
+  getAllImage
 };
