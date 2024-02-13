@@ -1,4 +1,5 @@
 const BASE_URL = "http://localhost:8000/api/v1/user";
+const ACCESS_TOKEN = 'accessToken'
 
 const createUser = async (data) => {
   try {
@@ -54,4 +55,29 @@ const login = async (data) => {
   }
 }
 
-export { createUser , login };
+//upload image
+const uploadImage = async (uploadImg) => {
+  try {
+    const url = BASE_URL + "/upload/image"
+    const formData = new FormData()
+    console.log(uploadImg)
+    formData.set("image" , uploadImg )
+
+    const response = await fetch(url , {
+      method: 'POST',
+      headers: {
+        "authorization": "Bearer"+ localStorage.getItem(ACCESS_TOKEN)
+      },
+      body: formData
+    })
+
+    const responseData = await response.json();
+    console.log(responseData)
+    return responseData
+    
+  } catch (error) {
+    console.log("Error in upload Image helper function: ", error)
+  }
+}
+
+export { createUser , login , uploadImage };
