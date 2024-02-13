@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { uploadImage } from "../helper";
 import { useDispatch } from "react-redux";
 import { setData } from "../store/features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 // const coverImg =
 //   "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg";
@@ -30,6 +31,7 @@ const UserProfile = ({
   const inputFileRef = useRef(null);
   const [uploadImg, setUploadImg] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   //edit profile function
   const editProfile = () => {
@@ -68,7 +70,7 @@ const UserProfile = ({
     const changeCoverImage = () => {
       const confirm = window.confirm("Do you really want to change avatar");
       if (confirm) {
-        alert("change coverimage");
+        navigate("/change-cover-image")
       }
     };
 
