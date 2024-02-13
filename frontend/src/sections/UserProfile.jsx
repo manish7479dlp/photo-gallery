@@ -62,7 +62,7 @@ const UserProfile = ({
   const changeAvatar = () => {
     const confirm = window.confirm("Do you really want to change avatar");
     if (confirm) {
-      alert("change avatar");
+      navigate("/change-avatar-image")
     }
   };
 
