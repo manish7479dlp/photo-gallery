@@ -27,7 +27,8 @@ const Login = () => {
 
   //handle form submit
   const handleSubmit = async (e) => {
-     e.preventDefault()
+     try {
+      e.preventDefault()
      const loginData = {
       userName,
       password
@@ -41,6 +42,9 @@ const Login = () => {
         navigate("/profile")
      } else {
          toast.error(response.message)
+     }
+     } catch (error) {
+        toast.error(response.message)
      }
   }
 
