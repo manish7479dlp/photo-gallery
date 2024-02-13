@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { FaUpload, FaCloudUploadAlt } from "react-icons/fa";
+import { FaUpload, FaCloudUploadAlt , FaEdit } from "react-icons/fa";
 import { useRef } from "react";
 import { uploadImage } from "../helper";
 import { useDispatch } from "react-redux";
@@ -29,7 +29,7 @@ const UserProfile = ({
 
   const inputFileRef = useRef(null);
   const [uploadImg, setUploadImg] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //edit profile function
   const editProfile = () => {
@@ -47,7 +47,7 @@ const UserProfile = ({
       if (response.status) {
         dispatch(setData(response.data.user));
         toast.success("Image uploaded sucessfully");
-        setUploadImg("")
+        setUploadImg("");
       } else {
         toast.warning("Something went wrong");
       }
@@ -56,21 +56,41 @@ const UserProfile = ({
     }
   };
 
+  //change avatar img
+  const changeAvatar = () => {
+    const confirm = window.confirm("Do you really want to change avatar");
+    if (confirm) {
+      alert("change avatar");
+    }
+  };
+
+    //change cover img
+    const changeCoverImage = () => {
+      const confirm = window.confirm("Do you really want to change avatar");
+      if (confirm) {
+        alert("change coverimage");
+      }
+    };
+
   return (
     <div className="relative  bg-slate-900 rounded-md overflow-hidden">
       {/* coverImage section */}
-      <div className="h-44">
+      <div className="h-44 relative">
         <img
           src={coverImageURL}
           alt="cover-image"
           className="max-h-36 md:max-h-44 object-cover w-full "
         />
+        <FaEdit className="absolute right-5 top-5 text-red-600 size-8 cursor-pointer hover:text-green-500 " onClick={changeCoverImage}/>
       </div>
 
       {/* user details section */}
       <div className="pt-8 pb-5 flex justify-between flex-col md:flex-row md:pb-0">
         {/* avatar */}
-        <div className="absolute top-12 md:top-20 left-5">
+        <div
+          className="absolute top-12 md:top-20 left-5"
+          onClick={changeAvatar}
+        >
           <img
             src={avatarImgURL}
             alt="avatar-img"
