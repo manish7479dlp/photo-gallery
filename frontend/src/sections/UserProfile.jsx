@@ -7,13 +7,6 @@ import { useDispatch } from "react-redux";
 import { setData } from "../store/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
-// const coverImg =
-//   "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg";
-
-// const avtartImg =
-//   "https://i.pinimg.com/550x/75/06/5d/75065da93d181c15f8266289313231c6.jpg";
-
-// const coverImg = "https://media.licdn.com/dms/image/D4D16AQGQdenIsg22dQ/profile-displaybackgroundimage-shrink_350_1400/0/1685336018409?e=1713398400&v=beta&t=qKhbMnvgbtZgf8xwj5fZZdPSxgPBuPIf55qSR85BwtU"
 
 const UserProfile = ({
   coverImage,
@@ -24,9 +17,6 @@ const UserProfile = ({
   userName,
   avatar,
 }) => {
-  const BASE_URL = "http://localhost:8000/";
-  const avatarImgURL = BASE_URL + avatar;
-  const coverImageURL = BASE_URL + coverImage;
   const isAuth = localStorage.getItem("user");
 
   const inputFileRef = useRef(null);
@@ -82,7 +72,7 @@ const UserProfile = ({
       {/* coverImage section */}
       <div className="h-44 relative">
         <img
-          src={coverImageURL}
+          src={coverImage}
           alt="cover-image"
           className="max-h-36 md:max-h-44 object-cover w-full "
         />
@@ -102,7 +92,7 @@ const UserProfile = ({
           onClick={changeAvatar}
         >
           <img
-            src={avatarImgURL}
+            src={avatar}
             alt="avatar-img"
             className="w-36 h-36 object-cover rounded-full bg-white p-1 cursor-pointer"
           />
