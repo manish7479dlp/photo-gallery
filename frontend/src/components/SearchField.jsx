@@ -1,12 +1,30 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { getUserByUserName } from "../helper";
+import { useDispatch } from "react-redux";
+import { setData } from "../store/features/user/publicUserSlice";
+import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
 
 const SearchField = () => {
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   //search user
-  const findUser = () => {
-    console.log(search);
+  const findUser = async () => {
+    try {
+      const response = await getUserByUserName(search);
+      if (response.status) {
+        dispatch(setData(response.data));
+        localStorage.clear()
+        navigate("/profile")
+      } else {
+        toast.info("Invalid userName")
+      }
+    } catch (error) {
+      console.log("Error in findUser component function: ", error);
+    }
   };
   return (
     <div className="flex items-center justify-center">
