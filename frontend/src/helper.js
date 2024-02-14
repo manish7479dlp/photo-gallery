@@ -191,6 +191,19 @@ const getAllImage = async () => {
   }
 }
 
+// getUser by userName
+const getUserByUserName = async (userName) => {
+  try {
+    const url = BASE_URL + "/" + userName
+    console.log(url)
+    const response = await fetch(url)
+    const responseData = await response.json()
+    return responseData
+  } catch (error) {
+    console.log("Error in getUserByUserName helper function: ", error)
+  }
+}
+
 export {
   createUser,
   login,
@@ -200,4 +213,5 @@ export {
   updateAvatarImage,
   updateUserDetails,
   getAllImage,
+  getUserByUserName,
 };
