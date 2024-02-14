@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { FaUpload, FaCloudUploadAlt , FaEdit } from "react-icons/fa";
+import { FaUpload, FaCloudUploadAlt, FaEdit } from "react-icons/fa";
 import { useRef } from "react";
 import { uploadImage } from "../helper";
 import { useDispatch } from "react-redux";
@@ -27,15 +27,16 @@ const UserProfile = ({
   const BASE_URL = "http://localhost:8000/";
   const avatarImgURL = BASE_URL + avatar;
   const coverImageURL = BASE_URL + coverImage;
+  const isAuth = localStorage.getItem("user");
 
   const inputFileRef = useRef(null);
   const [uploadImg, setUploadImg] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //edit profile function
   const editProfile = () => {
-    navigate("/change-user-details")
+    navigate("/change-user-details");
   };
 
   //upload file function
@@ -60,19 +61,21 @@ const UserProfile = ({
 
   //change avatar img
   const changeAvatar = () => {
-    const confirm = window.confirm("Do you really want to change avatar");
-    if (confirm) {
-      navigate("/change-avatar-image")
+    if (isAuth) {
+      const confirm = window.confirm("Do you really want to change avatar");
+      if (confirm) {
+        navigate("/change-avatar-image");
+      }
     }
   };
 
-    //change cover img
-    const changeCoverImage = () => {
-      const confirm = window.confirm("Do you really want to change avatar");
-      if (confirm) {
-        navigate("/change-cover-image")
-      }
-    };
+  //change cover img
+  const changeCoverImage = () => {
+    const confirm = window.confirm("Do you really want to change avatar");
+    if (confirm) {
+      navigate("/change-cover-image");
+    }
+  };
 
   return (
     <div className="relative  bg-slate-900 rounded-md overflow-hidden">
@@ -83,7 +86,12 @@ const UserProfile = ({
           alt="cover-image"
           className="max-h-36 md:max-h-44 object-cover w-full "
         />
-        <FaEdit className="absolute right-5 top-5 text-red-600 size-8 cursor-pointer hover:text-green-500 " onClick={changeCoverImage}/>
+        <FaEdit
+          className={`${
+            !isAuth && "hidden"
+          } absolute right-5 top-5 text-red-600 size-8 cursor-pointer hover:text-green-500 `}
+          onClick={changeCoverImage}
+        />
       </div>
 
       {/* user details section */}
@@ -118,7 +126,7 @@ const UserProfile = ({
             {images?.length}
           </h3>
           <div>
-            <div className="flex justify-between">
+            <div className={`${!isAuth && "hidden"} flex justify-between `}>
               <button
                 className="bg-slate-700 px-3 py-1 rounded-md font-dmsans hover:bg-slate-800"
                 onClick={editProfile}
@@ -130,7 +138,11 @@ const UserProfile = ({
         </div>
 
         {/* upload section */}
-        <div className="pt-8 px-5 flex items-center flex-col gap-3">
+        <div
+          className={`${
+            !isAuth && "hidden"
+          } pt-8 px-5 flex items-center flex-col gap-3`}
+        >
           <div
             className="w-32 h-32 rounded-lg border-white border flex-col flex justify-center items-center cursor-pointer"
             onClick={() => inputFileRef.current.click()}
