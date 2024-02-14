@@ -18,6 +18,7 @@ const {
   updateAvatar,
   updateCoverImage,
   getAllImage,
+  getUserByUserName,
 } = require("../controllers/user.controllers");
 
 //create user route
@@ -98,5 +99,8 @@ router.patch(
 
 //get all image 
 router.get("/all-image", getAllImage)
+
+//get user by id
+router.get("/:userName",getUserByUserName)
 
 module.exports = router;
