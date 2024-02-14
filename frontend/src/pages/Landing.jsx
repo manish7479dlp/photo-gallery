@@ -47,7 +47,7 @@ const Landing = () => {
           </h1>
         </div>
 
-        <div className="container flex gap-3 flex-col  mt-20 sm:mt-0">
+        <div className="container flex gap-5 flex-col  mt-20 sm:mt-0">
           <h1 className="text-white text-5xl md:text-6xl font-dmsans font-extrabold">
             Welcome to{" "}
             <span className="text-green-500 text-6xl"> Gallery </span> App
@@ -62,7 +62,7 @@ const Landing = () => {
 
           <SearchField/>
 
-          <div className="font-dmsans flex gap-8 justify-center mt-3">
+          <div className="font-dmsans flex gap-8 justify-center">
             <button
               className="px-4 py-1 rounded-md bg-green-500 text-xl font-bold cursor-pointer"
               onClick={() => navigate("/login")}
