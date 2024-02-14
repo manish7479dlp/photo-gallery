@@ -12,6 +12,8 @@ const ImagePreview = () => {
   const imgUrl = BASE_URL + "upload/" + img;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isAuth = localStorage.getItem("user");
+
 
   //delete image
   const deleteImg = async () => {
@@ -45,7 +47,7 @@ const ImagePreview = () => {
           className="cursor-pointer hover:text-green-500"
           onClick={goBack}
         />
-        <div className="flex gap-4">
+        <div className={`${!isAuth && "hidden"} flex gap-4`}>
           <FaTrash
             className="cursor-pointer hover:text-green-500"
             onClick={deleteImg}
