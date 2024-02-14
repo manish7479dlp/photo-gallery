@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { getUserByUserName } from "../helper";
 import { useDispatch } from "react-redux";
-import { setData } from "../store/features/user/publicUserSlice";
+import { setData } from "../store/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import {toast} from "react-toastify"
 
