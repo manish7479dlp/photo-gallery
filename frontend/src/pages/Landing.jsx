@@ -25,18 +25,7 @@ const Landing = () => {
         {images?.map((image, idx) => (
           <ImageContainer imgLink={image} key={idx} />
         ))}
-        {images?.map((image, idx) => (
-          <ImageContainer imgLink={image} key={idx} />
-        ))}
-        {images?.map((image, idx) => (
-          <ImageContainer imgLink={image} key={idx} />
-        ))}
-        {images?.map((image, idx) => (
-          <ImageContainer imgLink={image} key={idx} />
-        ))}
-        {images?.map((image, idx) => (
-          <ImageContainer imgLink={image} key={idx} />
-        ))}
+        
       </div>
       <div className="absolute top-0 left-0 h-screen w-full text-white flex justify-center sm:items-center">
         {/* header */}
@@ -83,10 +72,7 @@ const Landing = () => {
 };
 
 const ImageContainer = ({ imgLink }) => {
-  const BASE_URL = "http://localhost:8000/";
-  const imgURL = BASE_URL + imgLink;
-
-  return <img src={imgURL} alt="img" className="max-h-44 object-center" />;
+  return <img src={imgLink} alt="img" className="max-h-44 object-center" />;
 };
 
 export default Landing;
