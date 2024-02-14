@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllImage } from "../helper";
 import { useNavigate } from "react-router-dom";
+import SearchField from "../components/SearchField";
 
 const Landing = () => {
   const [images, setImages] = useState([]);
@@ -37,7 +38,7 @@ const Landing = () => {
           <ImageContainer imgLink={image} key={idx} />
         ))}
       </div>
-      <div className="absolute top-0 left-0 h-screen w-full text-white flex justify-center items-center">
+      <div className="absolute top-0 left-0 h-screen w-full text-white flex justify-center sm:items-center">
         {/* header */}
         <div className="absolute top-0 pl-10 sm:pl-20 bg-green-600 sm:bg-transparent rounded-sm w-full">
           <h1 className=" sm:left-24 py-3 text-3xl md:text-5xl font-oswald">
@@ -46,7 +47,7 @@ const Landing = () => {
           </h1>
         </div>
 
-        <div className="container flex gap-3 flex-col sm:items-center">
+        <div className="container flex gap-3 flex-col  mt-20 sm:mt-0">
           <h1 className="text-white text-5xl md:text-6xl font-dmsans font-extrabold">
             Welcome to{" "}
             <span className="text-green-500 text-6xl"> Gallery </span> App
@@ -58,6 +59,8 @@ const Landing = () => {
             extra frills like highlight reels added in, but our gallery are
             straightforward...
           </p>
+
+          <SearchField/>
 
           <div className="font-dmsans flex gap-8 justify-center mt-3">
             <button
