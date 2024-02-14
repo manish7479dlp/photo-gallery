@@ -7,6 +7,10 @@ if(jsonData) {
 
 console.log(jsonData)
 
+if(!jsonData) {
+  jsonData = []
+}
+
 const initialState = {
   data: jsonData,
 

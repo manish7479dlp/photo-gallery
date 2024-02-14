@@ -1,10 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit"
 import userReducer from "./features/user/userSlice"
-import publicUserRoute from "./features/user/publicUser"
+import publicUserReducer from "./features/user/publicUserSlice"
 const store = configureStore({
     reducer:{
         user: userReducer,
-        publicUser: publicUserRoute
+        publicUser: publicUserReducer
     }
 })
 
