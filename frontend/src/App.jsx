@@ -34,8 +34,9 @@ const App = () => {
         {/* private router */}
 
         <Route path="/profile" element={<Profile />} />
+        <Route path="/image-preview/:img" element={<ImagePreview />} />
+        
         <Route element={<PrivateComponent />}>
-          <Route path="/image-preview/:img" element={<ImagePreview />} />
           <Route path="/change-cover-image" element={<ChangeCoverImage />} />
           <Route path="/change-avatar-image" element={<ChangeAvatarImage />} />
           <Route path="/change-user-details" element={<EditUserDetails />} />
