@@ -2,6 +2,11 @@ const User = require("../models/user.models");
 const bcryptjs = require("bcryptjs");
 const apiResponse = require("../utility/apiResponse");
 const fs = require("fs");
+const {
+  uploadOnCloudinary,
+  deleteFromCloudinary,
+} = require("../utility/cloudinary");
+const { getPublicKeyOfImage } = require("../utility/helper");
 
 //create user
 const createUser = async (req, res) => {
@@ -37,8 +42,6 @@ const createUser = async (req, res) => {
 
     // const avatar = req?.files?.avatar[0]?.path
     // const coverImage = req?.files?.coverImage[0]?.path
-     
-  
 
     let addData = {
       firstName,
@@ -46,18 +49,32 @@ const createUser = async (req, res) => {
       password,
       userName,
       email,
-      
+    };
+
+
+    if (
+      req.files &&
+      Array.isArray(req.files.coverImage) &&
+      req.files.coverImage.length > 0
+    ) {
+      const imgPath = req?.files?.coverImage[0]?.path;
+      const { url } = await uploadOnCloudinary(imgPath);
+      fs.unlinkSync(imgPath);
+
+      addData.coverImage = url;
     }
 
-    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
-      addData.coverImage = req?.files?.coverImage[0]?.path
+    if (
+      req.files &&
+      Array.isArray(req.files.avatar) &&
+      req.files.avatar.length > 0
+    ) {
+      const imgPath = req?.files?.avatar[0]?.path;
+      const { url } = await uploadOnCloudinary(imgPath);
+      fs.unlinkSync(imgPath);
+
+      addData.avatar = url;
     }
-
-    if(req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
-      addData.avatar = req?.files?.avatar[0]?.path
-    }
-
-
 
     const user = await User.create(addData);
 
@@ -263,7 +280,7 @@ const updateLastName = async (req, res) => {
 //Update user Details
 const updateUserDetails = async (req, res) => {
   try {
-    const { firstName, lastName, email , password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     if (!firstName) {
       return res
@@ -283,17 +300,47 @@ const updateUserDetails = async (req, res) => {
       (user.lastName = lastName),
       (user.email = email);
 
-      if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
-        user.coverImage = req?.files?.coverImage[0]?.path
-      }
-  
-      if(req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
-        user.avatar = req?.files?.avatar[0]?.path
-      }
+    if (
+      req.files &&
+      Array.isArray(req.files.coverImage) &&
+      req.files.coverImage.length > 0
+    ) {
+      const preImg = user.coverImage;
 
-      if(password) {{
-        user.password = password
-      }}
+      if (preImg) {
+        const preImgPublicKey = getPublicKeyOfImage(preImg);
+        await deleteFromCloudinary(preImgPublicKey);
+      }
+      const imgPath = req?.files?.coverImage[0]?.path;
+      const { url } = await uploadOnCloudinary(imgPath);
+      fs.unlinkSync(imgPath);
+
+      user.coverImage = url;
+    }
+
+    if (
+      req.files &&
+      Array.isArray(req.files.avatar) &&
+      req.files.avatar.length > 0
+    ) {
+      const preImg = user.avatar;
+
+      if (preImg) {
+        const preImgPublicKey = getPublicKeyOfImage(preImg);
+        await deleteFromCloudinary(preImgPublicKey);
+      }
+      const imgPath = req?.files?.avatar[0]?.path;
+      const { url } = await uploadOnCloudinary(imgPath);
+      fs.unlinkSync(imgPath);
+
+      user.avatar = url;
+    }
+
+    if (password) {
+      {
+        user.password = password;
+      }
+    }
 
     const response = await user.save({ validateBeforeSave: false });
 
@@ -377,7 +424,11 @@ const addImage = async (req, res) => {
     }
 
     const user = req?.user;
-    user.images.push(localPath);
+
+    const { url } = await uploadOnCloudinary(localPath);
+    fs.unlinkSync(localPath);
+
+    user.images.push(url);
 
     const response = await user.save({ validateBeforeSave: false });
 
@@ -413,10 +464,16 @@ const deleteImage = async (req, res) => {
     }
 
     const user = req?.user;
-    const imageName = `upload\\${imgName}`;
-    fs.unlinkSync(imageName);
+    const imgPrivateKey = `Gallery-Images/${imgName}`;
+
+    if (imgPrivateKey) {
+      const preImgPublicKey = getPublicKeyOfImage(imgPrivateKey);
+      await deleteFromCloudinary(preImgPublicKey);
+    }
+
     const images = user?.images.filter((img) => {
-      return img !== imageName;
+      const arr = img.split("/");
+      return arr[arr.length - 1].split(".")[0] !== imgName;
     });
     user.images = images;
     const response = await user.save(
@@ -459,13 +516,17 @@ const updateAvatar = async (req, res) => {
 
     const user = req?.user;
     const preImg = user.avatar;
+
     if (preImg) {
-      fs.unlinkSync(preImg);
+      const preImgPublicKey = getPublicKeyOfImage(preImg);
+      await deleteFromCloudinary(preImgPublicKey);
     }
-    user.avatar = imgPath;
 
+    const { url } = await uploadOnCloudinary(imgPath);
+    fs.unlinkSync(imgPath);
+
+    user.avatar = url;
     const response = await user.save({ validateBeforeSave: false });
-
     return res
       .status(200)
       .json(
@@ -494,16 +555,24 @@ const updateCoverImage = async (req, res) => {
       res
         .status(0)
         .json(
-          new apiResponse(400, "Something went wrong in update cover image controller")
+          new apiResponse(
+            400,
+            "Something went wrong in update cover image controller"
+          )
         );
     }
 
     const user = req?.user;
     const preImg = user.coverImage;
+
     if (preImg) {
-      fs.unlinkSync(preImg);
+      const preImgPublicKey = getPublicKeyOfImage(preImg);
+      await deleteFromCloudinary(preImgPublicKey);
     }
-    user.coverImage = imgPath;
+    const { url } = await uploadOnCloudinary(imgPath);
+    fs.unlinkSync(imgPath);
+
+    user.coverImage = url;
 
     const response = await user.save({ validateBeforeSave: false });
 
@@ -527,41 +596,54 @@ const updateCoverImage = async (req, res) => {
 };
 
 //get all images
-const getAllImage = async (req , res) => {
+const getAllImage = async (req, res) => {
   try {
-    const users = await User.find()
-    let allImages = []
+    const users = await User.find();
+    let allImages = [];
 
-    users.forEach((user) => (
-      allImages = [...allImages , ...user.images]
-    ))
+    users.forEach((user) => (allImages = [...allImages, ...user.images]));
 
-    res.status(200).json(new apiResponse(2000, images= {allImages} , "Sucess"))
+    res
+      .status(200)
+      .json(new apiResponse(2000, (images = { allImages }), "Sucess"));
   } catch (error) {
-    console.log("Error in get all image controller", error)
-    res.status(400).json(new apiResponse(400 , null , "Something went wrong in get all image controller", error))
+    console.log("Error in get all image controller", error);
+    res
+      .status(400)
+      .json(
+        new apiResponse(
+          400,
+          null,
+          "Something went wrong in get all image controller",
+          error
+        )
+      );
   }
-}
+};
 
 //get user by userName
-const getUserByUserName = async (req , res) => {
+const getUserByUserName = async (req, res) => {
   try {
-    const userName = req.params?.userName
-    if(!userName) {
-      return res.status(400).json(new apiResponse(400 , null , "userName required"))
+    const userName = req.params?.userName;
+    if (!userName) {
+      return res
+        .status(400)
+        .json(new apiResponse(400, null, "userName required"));
     }
 
-    const user = await User.findOne({userName})
+    const user = await User.findOne({ userName });
 
-    if(!user) {
-      return res.status(400).json(new apiResponse(400 , null , "Invalid userName"))
+    if (!user) {
+      return res
+        .status(400)
+        .json(new apiResponse(400, null, "Invalid userName"));
     }
 
-    return res.status(200).json(new apiResponse(200 , user , "User found"))
+    return res.status(200).json(new apiResponse(200, user, "User found"));
   } catch (error) {
-    console.log("Error in getUserByUserName controller", error)
+    console.log("Error in getUserByUserName controller", error);
   }
-}
+};
 
 module.exports = {
   createUser,
@@ -578,5 +660,5 @@ module.exports = {
   updateAvatar,
   updateCoverImage,
   getAllImage,
-  getUserByUserName
+  getUserByUserName,
 };
