@@ -543,6 +543,26 @@ const getAllImage = async (req , res) => {
   }
 }
 
+//get user by userName
+const getUserByUserName = async (req , res) => {
+  try {
+    const userName = req.params?.userName
+    if(!userName) {
+      return res.status(400).json(new apiResponse(400 , null , "userName required"))
+    }
+
+    const user = await User.findOne({userName})
+
+    if(!user) {
+      return res.status(400).json(new apiResponse(400 , null , "Invalid userName"))
+    }
+
+    return res.status(200).json(new apiResponse(200 , user , "User found"))
+  } catch (error) {
+    console.log("Error in getUserByUserName controller", error)
+  }
+}
+
 module.exports = {
   createUser,
   login,
@@ -557,5 +577,6 @@ module.exports = {
   deleteImage,
   updateAvatar,
   updateCoverImage,
-  getAllImage
+  getAllImage,
+  getUserByUserName
 };
