@@ -30,7 +30,7 @@ const Profile = () => {
     userData = useSelector((state) => state.publicUser.data);
   }
   console.log(userData);
-  if (userData?.length == 0) {
+  if (userData?.length == 0 || !userData) {
     return (
       <h1 className="pt-20 text-center text-white font-bold h-screen flex items-center justify-center text-2xl">
         Invalid credentials
