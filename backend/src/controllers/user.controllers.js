@@ -603,9 +603,24 @@ const getAllImage = async (req, res) => {
 
     users.forEach((user) => (allImages = [...allImages, ...user.images]));
 
+    let digitCount = 0
+    let num = allImages.length
+
+    while(num > 0) {
+      digitCount++
+      num = Math.floor(num / 10)
+    
+    }
+
+    const randomImage = []
+    for(let i = 0; i < allImages.length; i++) {
+      let randomImgIdx = Math.floor((Math.random() * Math.pow(10 , digitCount - 1)));
+      randomImage.push(allImages[randomImgIdx])
+    }
+
     res
       .status(200)
-      .json(new apiResponse(2000, (images = { allImages }), "Sucess"));
+      .json(new apiResponse(200, (images = { randomImage }), "Sucess"));
   } catch (error) {
     console.log("Error in get all image controller", error);
     res
