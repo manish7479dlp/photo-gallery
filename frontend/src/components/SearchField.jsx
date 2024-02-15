@@ -44,7 +44,7 @@ const SearchField = () => {
         onChange={(e) => setSearch(e.target.value)}
         value={search}
       />
-      <div className="text-3xl bg-red-600 py-2 px-5  rounded-r-full cursor-pointer hover:bg-red-700">
+      <div className="text-3xl bg-slate-500 py-2 px-5  rounded-r-full cursor-pointer hover:bg-green-700">
         <FaSearch onClick={findUser} />
       </div>
     </div>
