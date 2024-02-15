@@ -6,6 +6,7 @@ import { uploadImage } from "../helper";
 import { useDispatch } from "react-redux";
 import { setData } from "../store/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 
 const UserProfile = ({
@@ -21,6 +22,7 @@ const UserProfile = ({
 
   const inputFileRef = useRef(null);
   const [uploadImg, setUploadImg] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,6 +34,7 @@ const UserProfile = ({
   //upload file function
   const uploadFile = async () => {
     try {
+      setLoading(true)
       if (!uploadImg) {
         toast.warning("Upload file is missing");
         return;
@@ -44,10 +47,16 @@ const UserProfile = ({
       } else {
         toast.warning("Something went wrong");
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log("Error in upload file funciton", error);
     }
   };
+
+  if(loading) {
+    return <Loading/>
+  }
 
   //change avatar img
   const changeAvatar = () => {
