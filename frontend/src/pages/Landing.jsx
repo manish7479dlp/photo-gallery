@@ -10,7 +10,7 @@ const Landing = () => {
   useEffect(() => {
     getAllImage()
       .then((response) => {
-        setImages(response.data.allImages);
+        setImages(response.data.randomImage);
       })
       .then((error) => {
         console.log(error);
@@ -22,7 +22,7 @@ const Landing = () => {
     <>
       <div className="h-screen w-full overflow-hidden">
         <div className=" text-white grid grid-cols-3 md:grid-cols-6 md:skew-y-6  md:scale-125 opacity-25">
-          {images.length === 0 && <h1>No image found</h1>}
+          {images?.length === 0 && <h1>No image found</h1>}
 
           {images?.map((image, idx) => (
             <ImageContainer imgLink={image} key={idx} />
