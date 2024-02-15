@@ -30,14 +30,14 @@ const Landing = () => {
         </div>
         <div className="absolute top-0 left-0 h-screen w-full text-white flex justify-center sm:items-center">
           {/* header */}
-          <div className="absolute top-0 pl-10 sm:pl-20 bg-green-600 sm:bg-transparent rounded-sm w-full">
+          <div className="absolute top-0 pl-3 sm:pl-20 border-b sm:border-none bg-slate-700 sm:bg-transparent rounded-sm w-full">
             <h1 className=" sm:left-24 py-3 text-3xl md:text-5xl font-oswald">
-              <span className="text-yellow-500">Gallery </span>
+              <span className="text-green-500">Gallery </span>
               App
             </h1>
           </div>
 
-          <div className="container flex gap-5 flex-col  mt-20 sm:mt-0">
+          <div className="container flex gap-5 flex-col items-center mt-28 sm:mt-0">
             <h1 className="text-white text-5xl md:text-6xl font-dmsans font-extrabold">
               Welcome to{" "}
               <span className="text-green-500 text-6xl"> Gallery </span> App
@@ -52,15 +52,15 @@ const Landing = () => {
 
             <SearchField />
 
-            <div className="font-dmsans flex gap-8 justify-center">
+            <div className="font-dmsans flex mt-3  gap-8 justify-center">
               <button
-                className="px-4 py-1 rounded-md bg-green-500 text-xl font-bold cursor-pointer"
+                className="px-4 py-1 rounded-md bg-green-600 text-2xl font-bold cursor-pointer"
                 onClick={() => navigate("/login")}
               >
                 Login
               </button>
               <button
-                className="px-4 py-1 rounded-md bg-yellow-500 text-xl font-bold cursor-pointer "
+                className="px-4 py-1 rounded-md bg-yellow-500 text-2xl font-bold cursor-pointer "
                 onClick={() => navigate("/signup")}
               >
                 Signup
