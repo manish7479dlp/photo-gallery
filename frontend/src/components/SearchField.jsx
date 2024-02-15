@@ -5,15 +5,18 @@ import { useDispatch } from "react-redux";
 import { setData } from "../store/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import {toast} from "react-toastify"
+import Loading from "./Loading";
 
 const SearchField = () => {
   const [search, setSearch] = useState("");
+  const [loading , setLoading] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
   //search user
   const findUser = async () => {
     try {
+      setLoading(true)
       const response = await getUserByUserName(search);
       if (response.status) {
         dispatch(setData(response.data));
@@ -22,10 +25,16 @@ const SearchField = () => {
       } else {
         toast.info("Invalid userName")
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log("Error in findUser component function: ", error);
     }
   };
+
+  if(loading) {
+   return <Loading />
+  }
   return (
     <div className="flex items-center justify-center">
       <input
