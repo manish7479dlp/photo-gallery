@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getAllImage } from "../helper";
 import { useNavigate } from "react-router-dom";
 import SearchField from "../components/SearchField";
-import Loading from "../components/Loading";
 
 const Landing = () => {
   const [images, setImages] = useState([]);
@@ -17,6 +16,7 @@ const Landing = () => {
         console.log(error);
       });
   }, []);
+
 
   return (
     <>
@@ -69,7 +69,6 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <Loading />
     </>
   );
 };
