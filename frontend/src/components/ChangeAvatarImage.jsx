@@ -5,16 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setData } from "../store/features/user/userSlice";
+import Loading from "../components/Loading"
 
 const ChangeAvatarImage = () => {
   const inputFileRef = useRef(null);
   const [avatarImage, setAvatarImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
   //change cover image
   const changeAvtarImg = async () => {
     try {
+      setLoading(true)
       const response = await updateAvatarImage(avatarImage);
       if (response.status) {
         dispatch(setData(response.data.user));
@@ -22,10 +25,17 @@ const ChangeAvatarImage = () => {
         toast.success("Avatar image updated sucessfully.");
         navigate(-1);
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log("Error in change avatar image component", error);
     }
   };
+
+  if(loading) {
+    return <Loading />
+  }
+
   return (
     <div className="container pt-20 text-white flex justify-center items-center h-screen">
       {/* upload section */}
