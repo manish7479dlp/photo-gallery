@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { createUser } from "../helper";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading"
 
 const Signup = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
@@ -14,6 +15,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [coverImage, setCoverImage] = useState("");
+  const [loading , setLoading] = useState(false)
   const navigate = useNavigate();
 
   const changePasswordVisibility = () => {
@@ -22,6 +24,8 @@ const Signup = () => {
 
   //handle form submit
   const handleSubmit = async (e) => {
+    try {
+      setLoading(true)
     e.preventDefault();
 
     // check all mendatory field data are getting or not
@@ -47,8 +51,6 @@ const Signup = () => {
       avatar,
       coverImage,
     };
-
-    console.log(signUpDetails);
     const response = await createUser(signUpDetails);
     if (response.status) {
       navigate("/login");
@@ -56,7 +58,16 @@ const Signup = () => {
     } else {
       toast.error(response.message)
     }
+    } catch (error) {
+      console.log("Error in signup page: ",error)
+    } finally {
+      setLoading(false)
+    }
   };
+
+  if(loading) {
+    return <Loading/>
+  }
 
   return (
     <div className="container h-screen w-full flex justify-center items-center mt-44 sm:mt-40 md:mt-0">
