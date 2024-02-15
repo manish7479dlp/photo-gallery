@@ -21,7 +21,7 @@ const Landing = () => {
   return (
     <>
       <div className="h-screen w-full overflow-hidden">
-        <div className=" text-white grid grid-cols-3 md:grid-cols-6 md:skew-y-6  md:scale-125 opacity-15 sm:opacity-25">
+        <div className=" text-white grid grid-cols-3 md:grid-cols-6 md:skew-y-6  md:scale-125 opacity-25">
           {images.length === 0 && <h1>No image found</h1>}
 
           {images?.map((image, idx) => (
