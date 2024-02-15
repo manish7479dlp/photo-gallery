@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000/api/v1/user";
+const BASE_URL = "https://gallery-apps.onrender.com/api/v1/user";
 const ACCESS_TOKEN = "accessToken";
 
 const createUser = async (data) => {
