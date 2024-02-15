@@ -5,12 +5,14 @@ import {useDispatch} from "react-redux"
 import { setData } from "../store/features/user/userSlice";
 import {toast} from "react-toastify"
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading"
 
 const Login = () => {
   const ACCESS_TOKEN = 'accessToken'
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [userName , setUserName] = useState("")
   const [password , setPassword] = useState("")
+  const [loading , setLoading] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -28,6 +30,7 @@ const Login = () => {
   //handle form submit
   const handleSubmit = async (e) => {
      try {
+      setLoading(true)
       e.preventDefault()
      const loginData = {
       userName,
@@ -43,9 +46,15 @@ const Login = () => {
      } else {
          toast.error(response.message)
      }
+     setLoading(false)
      } catch (error) {
+      setLoading(false)
         toast.error(response.message)
      }
+  }
+
+  if(loading) {
+    return <Loading/>
   }
 
 
