@@ -10,8 +10,10 @@ app.use(cors());
 app.use(express.json({limit: '50mb'}));
 
 const fullPath = path.join(__dirname, "../upload");
-console.log(fullPath);
+// console.log(fullPath);
 app.use("/upload", express.static(fullPath));
+app.use("/", express.static(path.join(__dirname , "../dist")))
+// console.log(path.join(__dirname , "../dist"))
 
 // route import
 
