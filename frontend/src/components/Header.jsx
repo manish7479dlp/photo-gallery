@@ -20,7 +20,7 @@ const Header = () => {
       }  bg-slate-700 w-full fixed top-0 left-0 z-50 `}
     >
       <nav className="container h-16 flex justify-between items-center">
-        <h1 className="text-white text-2xl sm:text-4xl font-oswald">
+        <h1 className="text-white text-2xl sm:text-4xl font-oswald cursor-pointer" onClick={() => navigate("/")}>
           {" "}
           <span className="text-green-500">Gallery </span>
           App
