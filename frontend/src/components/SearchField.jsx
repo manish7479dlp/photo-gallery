@@ -17,6 +17,10 @@ const SearchField = () => {
   const findUser = async () => {
     try {
       setLoading(true)
+      if(!search) {
+        toast.info("userName required")
+        return
+      }
       const response = await getUserByUserName(search);
       if (response.status) {
         dispatch(setData(response.data));
@@ -25,10 +29,10 @@ const SearchField = () => {
       } else {
         toast.info("Invalid userName")
       }
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       console.log("Error in findUser component function: ", error);
+    } finally {
+      setLoading(false)
     }
   };
 
