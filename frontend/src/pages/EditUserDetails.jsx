@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../store/features/user/userSlice";
+import Loading from "../components/Loading"
 
 const EditUserDetails = () => {
   const data = useSelector((state) => state?.user?.data);
@@ -18,8 +19,9 @@ const EditUserDetails = () => {
   const [email, setEmail] = useState(data?.email);
   const [avatar, setAvatar] = useState("");
   const [coverImage, setCoverImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const changePasswordVisibility = () => {
     setPasswordVisible((pre) => !pre);
@@ -27,31 +29,42 @@ const EditUserDetails = () => {
 
   //handle form submit
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      setLoading(true);
+      e.preventDefault();
 
-    if (confirmPassword !== password) {
-      toast.warning("Password or Confirm password not Match");
-      return;
-    }
-    const UserDetails = {
-      firstName,
-      lastName,
-      userName,
-      password,
-      email,
-      avatar,
-      coverImage,
-    };
+      if (confirmPassword !== password) {
+        toast.warning("Password or Confirm password not Match");
+        return;
+      }
+      const UserDetails = {
+        firstName,
+        lastName,
+        userName,
+        password,
+        email,
+        avatar,
+        coverImage,
+      };
 
-    const response = await updateUserDetails(UserDetails);
-    if (response.status) {
-        dispatch(setData(response.data))
-      navigate(-1);
-      toast.success("User updated sucessfully");
-    } else {
-      toast.error(response.message);
+      const response = await updateUserDetails(UserDetails);
+      if (response.status) {
+        dispatch(setData(response.data));
+        navigate(-1);
+        toast.success("User updated sucessfully");
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      console.log("Error in editUserDetails component: ", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if(loading) {
+    return <Loading/>
+  }
 
   return (
     <div className="container h-screen w-full flex justify-center items-center mt-44 sm:mt-40 md:mt-0">
