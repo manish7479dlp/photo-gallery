@@ -70,12 +70,12 @@ const Signup = () => {
   }
 
   return (
-    <div className="container h-screen w-full flex justify-center items-center mt-44 sm:mt-40 md:mt-0">
-      <div className="md:bg-slate-600 text-white  rounded-lg p-8 mt-200 md:mt-10">
-        <h1 className="text-center text-3xl font-dmsans font-bold">Signup</h1>
+    <div className="container h-screen w-full flex justify-center items-center mt-36 sm:mt-40 md:mt-0">
+      <div className="md:bg-slate-600 text-white  rounded-lg p-8 md:mt-16">
+        <h1 className="text-center text-4xl font-dmsans font-bold">Signup</h1>
         <form
           onSubmit={handleSubmit}
-          className=" flex md:justify-center flex-wrap gap-4 md:gap-8  md:mt-7"
+          className=" flex md:justify-center flex-wrap gap-4 md:gap-8 mt-5 md:mt-7"
         >
           <div>
             <label className="font-semi-bold">
@@ -194,11 +194,11 @@ const Signup = () => {
             />
           </div>
 
-          <div className="sm:w-72">
+          <div className="sm:w-72 text-center w-full">
             <input
               type="submit"
               value="Signup"
-              className="bg-green-700 px-4 py-2 rounded-md font-bold cursor-pointer hover:bg-green-600 md:w-72"
+              className="bg-green-700 px-4 py-2 text-xl rounded-md font-bold cursor-pointer hover:bg-green-600 md:w-72"
             />
           </div>
         </form>
