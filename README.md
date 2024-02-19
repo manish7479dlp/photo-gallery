@@ -28,7 +28,7 @@ To see public profile use userName = manish7479dlp as a demo
 
 #
 
-### Executition Command
+### Executation Command
 
 ```
 npm run dev
@@ -38,7 +38,7 @@ npm run dev
 
 # FrontEnd
 
-### Executition Command
+### Executation Command
 
 ```
 npm run dev
