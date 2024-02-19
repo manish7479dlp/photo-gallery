@@ -1,1 +1,45 @@
 # Gallery App
+
+# Full Project Deployment Link
+
+[click here to visit](https://manish7479dlp-gallery-app.netlify.app) our Gallery Web Application App
+
+To see public profile use userName = manish7479dlp as a demo
+
+## Backend
+
+### Initilized the .env file with their appropriate value
+
+#
+
+##### JWT_SECRET_KEY=
+
+##### JWT_TOKEN_EXPIRES_IN=
+
+##### MONGO_DB_URL=
+
+### \***\*\*\*\***cloudianry config data\***\*\*\*\***
+
+##### CLOUD_NAME=
+
+##### CLOUD_API_KEY=
+
+##### CLOUD_API_SECRET=
+
+#
+
+### Executition Command
+
+```
+npm run dev
+```
+
+#
+
+# FrontEnd
+
+### Executition Command
+
+```
+npm run dev
+```
