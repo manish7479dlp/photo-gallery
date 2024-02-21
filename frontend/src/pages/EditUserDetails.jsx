@@ -114,6 +114,7 @@ const EditUserDetails = () => {
             <br />
             <input
               type="text"
+              disabled
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               className="rounded-md px-2 py-2 mt-2 bg-slate-500 w-64 md:w-72"
