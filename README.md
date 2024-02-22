@@ -6,9 +6,16 @@
 
 To see public profile use userName = manish7479dlp as a demo
 
+### For Login use the given userName or Password to see the demo of our project.
+
+```
+userName: manish7479dlp
+password: 123
+```
+
 ## Backend
 
-### Initilized the .env file with their appropriate value
+### Initilize the .env file with their appropriate value
 
 #
 
